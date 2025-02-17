@@ -1,0 +1,97 @@
+{
+  "acne_information": {
+    "diagnosis": {
+      "main_diagnosis": "Pustular Acne",
+      "description": "Pustular acne is characterized by inflamed, pus-filled lesions that appear as raised, red bumps with white or yellowish centers. These occur due to a buildup of oil, dead skin cells, and bacteria (typically Cutibacterium acnes) in hair follicles, leading to inflammation. The presence of these pustules can result in post-inflammatory hyperpigmentation and, if severe, may contribute to scarring. Given the observation of 14 pustules and a history of seasonal dryness, targeted hydration and anti-inflammatory treatments will be incorporated into the regimen."
+    },
+    "causes": [
+      "Increased sebum production",
+      "Bacterial overgrowth (Cutibacterium acnes)",
+      "Clogged hair follicles due to dead skin cells",
+      "Inflammatory response triggered by immune system",
+      "Dryness-induced skin barrier disruption in winter"
+    ],
+    "treatments": [
+      {
+        "solution": "Sebum regulation",
+        "details": "Niacinamide, present in serums like the Geek & Gorgeous B-Bomb, helps to regulate sebum production by reducing lipid synthesis within sebaceous glands. Niacinamide’s molecular structure enables it to modulate cytokine production, reducing inflammation and improving the skin barrier function."
+      },
+      {
+        "solution": "Antibacterial action against Cutibacterium acnes",
+        "details": "Benzoyl Peroxide, as found in the PanOxyl 4% Acne Wash, functions by releasing free oxygen radicals that oxidize bacterial proteins and reduce bacterial proliferation. This bactericidal action prevents further pustule formation."
+      },
+      {
+        "solution": "Exfoliation to prevent clogged pores",
+        "details": "Salicylic acid, an oil-soluble beta hydroxy acid (BHA), dissolves in sebum and penetrates into hair follicles, breaking down intercellular connections between corneocytes. This prevents dead skin cell accumulation and comedone formation. The COSRX BHA Blackhead Power Liquid is formulated with betaine salicylate, a gentler derivative suitable for dry skin."
+      },
+      {
+        "solution": "Reducing inflammation from immune response",
+        "details": "Centella Asiatica extract, found in the Skin1004 Madagascar Centella Ampoule, contains triterpenoids such as madecassoside that inhibit pro-inflammatory mediators like TNF-alpha and IL-6. This reduces swelling and redness in pustular acne."
+      },
+      {
+        "solution": "Reinforcing skin barrier function in dry conditions",
+        "details": "Ceramides in the CeraVe Moisturizing Cream restore the lipid bilayer by integrating into the stratum corneum and preventing transepidermal water loss. This is critical in winter when the skin barrier is compromised."
+      }
+    ],
+    "routine": {
+      "cleansing": [
+        {
+          "product": "PanOxyl 4% Acne Wash",
+          "benefit": "Removes bacteria and excess sebum while reducing pustule formation."
+        }
+      ],
+      "exfoliation": [
+        {
+          "product": "COSRX BHA Blackhead Power Liquid",
+          "benefit": "Unclogs pores and prevents further pustule formation."
+        }
+      ],
+      "hydration": [
+        {
+          "product": "Skin1004 Madagascar Centella Ampoule",
+          "benefit": "Soothes inflammation and strengthens the skin barrier."
+        }
+      ],
+      "moisturization": [
+        {
+          "product": "CeraVe Moisturizing Cream",
+          "benefit": "Prevents moisture loss and maintains hydration, especially in winter."
+        }
+      ],
+      "treatment": [
+        {
+          "product": "Geek & Gorgeous B-Bomb Serum (Niacinamide 10%)",
+          "benefit": "Regulates oil production and minimizes inflammation."
+        }
+      ],
+      "prescription_options": [
+        {
+          "product": "Clindamycin Topical Gel (1%)",
+          "benefit": "Antibiotic treatment that inhibits bacterial protein synthesis to reduce pustule formation. Must be prescribed by a dermatologist."
+        },
+        {
+          "product": "Tretinoin (0.025% - 0.05%)",
+          "benefit": "Increases cell turnover to prevent clogged pores but can cause irritation and dryness."
+        }
+      ],
+      "incompatibilities": [
+        "Do not use benzoyl peroxide and tretinoin in the same routine due to potential degradation of tretinoin."
+      ]
+    },
+    "routine_chart": {
+      "morning": [
+        "PanOxyl 4% Acne Wash",
+        "COSRX BHA Blackhead Power Liquid",
+        "Geek & Gorgeous B-Bomb Serum",
+        "Skin1004 Madagascar Centella Ampoule",
+        "CeraVe Moisturizing Cream"
+      ],
+      "night": [
+        "PanOxyl 4% Acne Wash",
+        "Geek & Gorgeous B-Bomb Serum",
+        "Skin1004 Madagascar Centella Ampoule",
+        "CeraVe Moisturizing Cream"
+      ]
+    }
+  }
+}

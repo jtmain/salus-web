@@ -12,7 +12,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-function Modal({treatment, onClose}) {
+function Modal({treatment, onClose}: ModalProps) {
   return(
       <div onClick={onClose} className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 transition-opacity duration-300">
         <div onClick={(e) => e.stopPropagation()} className="bg-white p-6 rounded-lg shadow-lg max-w-lg">
@@ -62,16 +62,16 @@ export default function InfoPage() {
         <h2 className="text-lg font-semibold py-3">Causes and solutions</h2>
         <div className="flex flex-row gap-2 lg:gap-4 max-w-full px-4 text-white">
           
-          <div className="flex flex-col gap-2 items-start">
+          <div className="flex flex-col gap-2 items-stretch">
             {acneData?.causes?.map((cause: string, index: number) => (
-              <div key={index} className="bg-red-500 p-4 rounded-lg text-center lg:w-64">
+              <div key={index} className="bg-red-500 p-4 rounded-lg text-center w-full lg:w-64 ">
                 <p className="font-bold">{cause}</p>
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-2 items-start">
+          <div className="flex flex-col gap-2 items-stretch">
             {acneData?.treatments?.map((treatment, index) => (
-              <button key={index} onClick={() => setSelectedTreatment(treatment)} className="bg-green-500 p-4 rounded-lg text-center font-bold lg:w-64">
+              <button key={index} onClick={() => setSelectedTreatment(treatment)} className="bg-green-500 w-full p-4 rounded-lg text-center font-bold lg:w-64">
                 {treatment.solution}
                 
               </button>

@@ -1,5 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
+import type { AcneInformation, Root } from '../types/types';
+
+type Treatment = {
+  solution: string;
+  details: string;
+};
+
+interface ModalProps {
+  treatment: Treatment;
+  onClose: () => void;
+}
 
 function Modal({treatment, onClose}) {
   return(
@@ -13,9 +24,9 @@ function Modal({treatment, onClose}) {
   )}
 
 export default function InfoPage() {
-  const [acneData, setacneData] = useState<any>(null);
-  const [selectedTreatment,setSelectedTreatment] = useState(null)
-  const [products, setProducts] = useState<{ solution: string; details: string}[]>([]);
+  const [acneData, setacneData] = useState<AcneInformation | null>(null);
+  const [selectedTreatment,setSelectedTreatment] = useState<Treatment | null>(null);
+  const [products, setProducts] = useState<Treatment[]>([]);
 
   useEffect(() => {
     fetch("/skincare.json")
@@ -26,7 +37,7 @@ export default function InfoPage() {
         return res.json();
       })
 
-      .then((json) => {
+      .then((json: Root) => {
         console.log("got JSON", json);
         setacneData(json.acne_information);
       })

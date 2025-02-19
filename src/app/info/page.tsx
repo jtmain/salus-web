@@ -1,7 +1,5 @@
 "use client";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { json } from "stream/consumers";
 
 function Modal({treatment, onClose}) {
   return(

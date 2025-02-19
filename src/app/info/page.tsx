@@ -17,6 +17,7 @@ function Modal({treatment, onClose}) {
 export default function InfoPage() {
   const [acneData, setacneData] = useState<any>(null);
   const [selectedTreatment,setSelectedTreatment] = useState(null)
+  const [products, setProducts] = useState<{ solution: string; details: string}[]>([]);
 
   useEffect(() => {
     fetch("/skincare.json")
@@ -42,7 +43,7 @@ export default function InfoPage() {
 
         <div className="w-full lg:w-2/5 gap-10 px-4 lg:px-0">
           
-          <img src="/img2.jpg" alt="Info Image" className="pt-10 rounded-lg w-full" />
+          <img src="/img4.jpg" alt="Info Image" className="pt-10 rounded-lg w-full" />
 
           <h1 className="text-2xl font-bold pt-6">Diagnosis: {acneData?.diagnosis.main_diagnosis || "..."}</h1>
           <h2 className="text-lg font-semibold pt-2"> Description:</h2>
@@ -70,9 +71,23 @@ export default function InfoPage() {
             {selectedTreatment && (
               <Modal treatment={selectedTreatment} onClose={() => setSelectedTreatment(null)} />
             )}
-
           </div>
         </div>
+        <div className="max-w-2xl mx-auto p-6 ">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Product List</h2>
+            {products.length === 0 ? (
+              <p className="text-gray-500">No treatments available.</p>
+            ) : (
+              <ul className="list-disc pl-6 space-y-4">
+                {products.map((treatment, index) => (
+                  <li key={index} className="space-y-2">
+                    <h3 className="text-xl font-bold text-gray-900">{treatment.solution}</h3>
+                    <p className="text-gray-600">{treatment.details}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
       </div>
     </div>
 

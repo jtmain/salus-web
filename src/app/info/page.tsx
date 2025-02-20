@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { AcneInformation, Root } from '../types/types';
+import { Suspense } from "react";
 
 type Treatment = {
   solution: string;
@@ -25,6 +26,14 @@ function Modal({treatment, onClose}: ModalProps) {
   )}
 
 export default function InfoPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <InfoContent />
+    </Suspense>
+  );
+}
+
+function InfoContent() {
   const searchParams = useSearchParams();
   const dataParam = searchParams.get("data");
   let uploadResponse = null;

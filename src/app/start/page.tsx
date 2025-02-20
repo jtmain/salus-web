@@ -7,6 +7,7 @@ const Page: React.FC = () => {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [userInput, setUserInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
   // Predefined images from the public folder for the picker.
   const imagePickerList = [
@@ -33,6 +34,7 @@ const Page: React.FC = () => {
   // Capture a photo from the webcam and upload it.
   const capturePhoto = () => {
     if (videoRef.current) {
+      setIsLoading(true); // Start loading
       const video = videoRef.current;
       const tempCanvas = document.createElement("canvas");
       const context = tempCanvas.getContext("2d");
@@ -47,16 +49,24 @@ const Page: React.FC = () => {
             formData.append("image", blob, "photo.png");
             formData.append("skinfo", userInput);
 
-            fetch("http://127.0.0.1:8000/upload", {
+            fetch("https://urchin-app-mwnji.ondigitalocean.app/upload", {
               method: "POST",
               body: formData,
             })
               .then((response) => response.json())
               .then((data) => {
-                // Navigate to /info and pass the response data
-                router.push(`/info?data=${encodeURIComponent(JSON.stringify(data))}`);
+                setIsLoading(false);
+                // Store the data in sessionStorage before navigation
+                console.log("data", data);
+                sessionStorage.setItem('skinAnalysisData', JSON.stringify(data));
+                const storedData = sessionStorage.getItem('skinAnalysisData');
+                console.log("storedData", storedData);
+                router.push('/info');
               })
-              .catch((error) => console.error("Error uploading image:", error));
+              .catch((error) => {
+                setIsLoading(false); // Stop loading on error
+                console.error("Error uploading image:", error);
+              });
           }
         }, "image/png");
       }
@@ -65,6 +75,7 @@ const Page: React.FC = () => {
 
   // Convert a JPG image to a blob and upload it.
   const uploadImage = (imageUrl: string) => {
+    setIsLoading(true); // Start loading
     const image = new Image();
     image.crossOrigin = "anonymous";
     image.src = imageUrl;
@@ -83,16 +94,24 @@ const Page: React.FC = () => {
             formData.append("image", blob, "photo.png");
             formData.append("skinfo", userInput);
 
-            fetch("http://127.0.0.1:8000/upload", {
+            fetch("https://urchin-app-mwnji.ondigitalocean.app/upload", {
               method: "POST",
               body: formData,
             })
               .then((response) => response.json())
               .then((data) => {
-                // Navigate to /info and pass the response data
-                router.push(`/info?data=${encodeURIComponent(JSON.stringify(data))}`);
+                setIsLoading(false);
+                // Store the data in sessionStorage before navigation
+                console.log("data", data);
+                sessionStorage.setItem('skinAnalysisData', JSON.stringify(data));
+                const storedData = sessionStorage.getItem('skinAnalysisData');
+                console.log("storedData", storedData);
+                router.push('/info');
               })
-              .catch((error) => console.error("Error uploading image:", error));
+              .catch((error) => {
+                setIsLoading(false); // Stop loading on error
+                console.error("Error uploading image:", error);
+              });
           }
         }, "image/png");
       }
@@ -105,6 +124,15 @@ const Page: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-2xl mx-auto mt-6">
+      {isLoading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-300 mb-4"></div>
+            <p className="text-gray-700">Processing your image, this may take a while...</p>
+          </div>
+        </div>
+      )}
+      
       <video
         ref={videoRef}
         autoPlay
@@ -115,7 +143,7 @@ const Page: React.FC = () => {
       
       <button
         onClick={capturePhoto}
-        className="resize-none font-bold mt-4 p-3 bg-blue-300 text-stone-50 rounded-lg"
+        className="resize-none font-bold mt-4 p-3 bg-sky-400 text-stone-50 rounded-lg"
       >
         Start scan!
       </button>

@@ -11,11 +11,11 @@ const Page: React.FC = () => {
   
   // Predefined images from the public folder for the picker.
   const imagePickerList = [
-    "/image.jpg",
-    "/img2.jpg",
-    "/img3.jpg",
-    "/img4.jpg",
-    "/Img5.png",
+    "/IMG5.png",
+    "/IMG10.png",
+    "/IMG7.png",
+    "/IMG8.png",
+    "/IMG9.png",
   ];
 
   useEffect(() => {
@@ -165,7 +165,7 @@ const Page: React.FC = () => {
                 key={index}
                 src={url}
                 alt={`Picker image ${index + 1}`}
-                className="w-32 h-32 object-cover cursor-pointer rounded-lg border border-stone-600"
+                className="w-32 h-32 object-cover cursor-pointer rounded-lg"
                 onClick={() => uploadImage(url)}
               />
             ))}

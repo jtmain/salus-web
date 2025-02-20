@@ -11,7 +11,7 @@ const Page: React.FC = () => {
   
   // Predefined images from the public folder for the picker.
   const imagePickerList = [
-    "/IMG5.png",
+    "/Img5.png",
     "/IMG10.png",
     "/IMG7.png",
     "/IMG8.png",

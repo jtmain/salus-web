@@ -138,6 +138,7 @@ const Page: React.FC = () => {
         autoPlay
         loop
         muted
+        playsInline
         className="w-4/5 rounded-lg resize-none"
       ></video>
       

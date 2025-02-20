@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { AcneInformation, Root } from '../types/types';
 
 type Treatment = {
@@ -24,25 +25,51 @@ function Modal({treatment, onClose}: ModalProps) {
   )}
 
 export default function InfoPage() {
+  const searchParams = useSearchParams();
+  const dataParam = searchParams.get("data");
+  let uploadResponse = null;
+
+  // if (dataParam) {
+  //   try {
+  //     uploadResponse = JSON.parse(decodeURIComponent(dataParam));
+  //   } catch (error) {
+  //     console.error("Failed to parse upload response data:", error);
+  //   }
+  // }
+
+
   const [acneData, setacneData] = useState<AcneInformation | null>(null);
   const [selectedTreatment,setSelectedTreatment] = useState<Treatment | null>(null);
   const [products, setProducts] = useState<Treatment[]>([]);
 
   useEffect(() => {
-    fetch("/skincare.json")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to load JSON :(");
-        }
-        return res.json();
-      })
-
-      .then((json: Root) => {
-        console.log("got JSON", json);
-        setacneData(json.acne_information);
-      })
-      .catch((error) => console.error("Error loading JSON:", error));
-  }, [])
+    const dataParam = searchParams.get("data");
+    if (dataParam) {
+      try {
+        // Decode and parse the JSON string from the query parameter
+        const parsedResponse = JSON.parse(decodeURIComponent(dataParam));
+        // Since acne_information is a JSON string, parse it again
+        const acneInformation = JSON.parse(parsedResponse.acne_information);
+        setacneData(acneInformation);
+      } catch (error) {
+        console.error("Failed to parse upload response data:", error);
+      }
+    } else {
+      // Fallback: load from skincare.json if no query parameter is provided
+      fetch("/skincare.json")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to load JSON :(");
+          }
+          return res.json();
+        })
+        .then((json: Root) => {
+          console.log("got JSON", json);
+          setacneData(json.acne_information);
+        })
+        .catch((error) => console.error("Error loading JSON:", error));
+    }
+  }, [searchParams]);
 
 
 

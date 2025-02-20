@@ -1,13 +1,13 @@
-"use client";  
+"use client";
 
 import React, { useRef, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Page: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [userInput, setUserInput] = useState<string>("");
-  const [jpgUrl, setJpgUrl] = useState<string>("");
-
+  
   // Predefined images from the public folder for the picker.
   const imagePickerList = [
     "/image.jpg",
@@ -30,7 +30,7 @@ const Page: React.FC = () => {
       });
   }, []);
 
-  // Existing function to capture a photo from the webcam.
+  // Capture a photo from the webcam and upload it.
   const capturePhoto = () => {
     if (videoRef.current) {
       const video = videoRef.current;
@@ -52,7 +52,10 @@ const Page: React.FC = () => {
               body: formData,
             })
               .then((response) => response.json())
-              .then((data) => console.log("Upload success:", data))
+              .then((data) => {
+                // Navigate to /info and pass the response data
+                router.push(`/info?data=${encodeURIComponent(JSON.stringify(data))}`);
+              })
               .catch((error) => console.error("Error uploading image:", error));
           }
         }, "image/png");
@@ -60,10 +63,9 @@ const Page: React.FC = () => {
     }
   };
 
-  // Function to convert a JPG image (from the public folder) to a blob and upload it.
+  // Convert a JPG image to a blob and upload it.
   const uploadImage = (imageUrl: string) => {
     const image = new Image();
-    // Allow cross-origin image loading if needed.
     image.crossOrigin = "anonymous";
     image.src = imageUrl;
 
@@ -86,7 +88,10 @@ const Page: React.FC = () => {
               body: formData,
             })
               .then((response) => response.json())
-              .then((data) => console.log("Upload success:", data))
+              .then((data) => {
+                // Navigate to /info and pass the response data
+                router.push(`/info?data=${encodeURIComponent(JSON.stringify(data))}`);
+              })
               .catch((error) => console.error("Error uploading image:", error));
           }
         }, "image/png");
@@ -122,7 +127,7 @@ const Page: React.FC = () => {
         className="mt-4 p-2 border border-stone-600 text-stone-400 rounded-lg w-4/5 h-64 resize-none focus:border-black"
       ></textarea>
     
-      {/* Image Picker: horizontally scrollable container with 5 images from public folder */}
+      {/* Image Picker */}
       <div className="px-4">
         <div className="w-full overflow-x-auto pt-12">
           <div className="flex space-x-4">

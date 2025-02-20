@@ -14,16 +14,17 @@ interface ModalProps {
   onClose: () => void;
 }
 
-function Modal({treatment, onClose}: ModalProps) {
-  return(
-      <div onClick={onClose} className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 transition-opacity duration-300">
-        <div onClick={(e) => e.stopPropagation()} className="bg-white p-6 rounded-lg shadow-lg max-w-lg">
-          <h1 className="text-xl font-bold mb-2 text-blue-300">{treatment.solution}</h1>
-          <p className="text-gray-700 pb-3">{treatment.details}</p>
-          
-        </div>
+function Modal({ treatment, onClose }: ModalProps) {
+  return (
+    <div onClick={onClose} className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 transition-opacity duration-300">
+      <div onClick={(e) => e.stopPropagation()} className="bg-white p-6 rounded-lg shadow-lg max-w-lg">
+        <h1 className="text-xl font-bold mb-2 text-blue-300">{treatment.solution}</h1>
+        <p className="text-gray-700 pb-3">{treatment.details}</p>
+
       </div>
-  )}
+    </div>
+  )
+}
 
 // Update the type for the stored data
 type StoredData = {
@@ -59,46 +60,44 @@ function InfoContent({ data }: { data: StoredData | null }) {
   const [expandedProduct, setExpandedProduct] = useState<number | null>(null);
 
   useEffect(() => {
-    if (data?.ai_response) {
-      try {
-        const cleanJsonString = data.ai_response
-          .replace(/^```json\n/, '')
-          .replace(/\n```$/, '')
-          .trim();
+    if (!data || acneData) return; // Prevent unnecessary re-processing
 
-        const acneInformation = JSON.parse(cleanJsonString);
-        console.log("acneInformation", acneInformation);
-        setacneData(acneInformation.acne_information);
+    try {
+      const cleanJsonString = data.ai_response
+        .replace(/^```json\n/, '')
+        .replace(/\n```$/, '')
+        .trim();
 
-        if (acneInformation.acne_information.routine) {
-          const allProducts = [
-            ...acneInformation.acne_information.routine.section_one,
-            ...acneInformation.acne_information.routine.section_two,
-            ...acneInformation.acne_information.routine.section_three
-          ].map(item => ({
-            solution: item.product,
-            details: item.benefit
-          }));
-          setProducts(allProducts);
-        }
-        
-        if (data.response_image) {
-          setResponseImage(data.response_image);
-        }
-      } catch (error) {
-        console.error("Failed to parse acne information:", error);
-        console.log("Raw data:", data.ai_response);
-        loadFallbackData();
+      const acneInformation = JSON.parse(cleanJsonString);
+      console.log("Parsed acneInformation:", acneInformation);
+
+      // Ensure that acneData is only set once
+      setacneData((prev) => prev ?? acneInformation.acne_information);
+
+      // Load products once
+      if (acneInformation.acne_information.routine) {
+        const allProducts = [
+          ...acneInformation.acne_information.routine.section_one,
+          ...acneInformation.acne_information.routine.section_two,
+          ...acneInformation.acne_information.routine.section_three
+        ].map(item => ({
+          solution: item.product,
+          details: item.benefit
+        }));
+        setProducts((prev) => prev.length === 0 ? allProducts : prev);
       }
-    } else {
-      if (acneData === null) {
-        loadFallbackData();
-      }
+
+      // Ensure responseImage is only set if it's not already there
+      setResponseImage((prev) => prev ?? data.response_image);
+    } catch (error) {
+      console.error("Failed to parse acne information:", error);
+      console.log("Raw data:", data.ai_response);
+      loadFallbackData();
     }
-  }, [data]);
+  }, [data]); // Only run when `data` changes
   useEffect(() => {
     console.log("Updated acneData:", acneData);
-}, [acneData]);
+  }, [acneData]);
 
   const loadFallbackData = () => {
     fetch("/skincare.json")
@@ -124,18 +123,18 @@ function InfoContent({ data }: { data: StoredData | null }) {
       <div className="flex flex-col items-center justify-start">
 
         <div className="w-full lg:w-2/5 gap-10 px-4 lg:px-0">
-          
+
           {responseImage ? (
-            <img 
-              src={`data:image/jpeg;base64,${responseImage}`} 
-              alt="Analyzed Image" 
+            <img
+              src={`data:image/jpeg;base64,${responseImage}`}
+              alt="Analyzed Image"
               className="pt-10 rounded-lg w-full"
             />
           ) : (
-            <img 
-              src="/img4.jpg" 
-              alt="Info Image" 
-              className="pt-10 rounded-lg w-full" 
+            <img
+              src="/img4.jpg"
+              alt="Info Image"
+              className="pt-10 rounded-lg w-full"
             />
           )}
 
@@ -155,15 +154,15 @@ function InfoContent({ data }: { data: StoredData | null }) {
           </div>
           <div className="grid grid-cols-1 gap-2 w-full">
             {acneData?.treatments?.map((treatment, index) => (
-              <button 
-                key={index} 
-                onClick={() => setSelectedTreatment(treatment)} 
+              <button
+                key={index}
+                onClick={() => setSelectedTreatment(treatment)}
                 className="bg-green-500 p-4 rounded-lg text-center font-bold h-full flex items-center justify-center"
               >
                 {treatment.solution}
               </button>
             ))}
-            
+
             {selectedTreatment && (
               <Modal treatment={selectedTreatment} onClose={() => setSelectedTreatment(null)} />
             )}
@@ -183,9 +182,8 @@ function InfoContent({ data }: { data: StoredData | null }) {
                   >
                     <span className="text-lg font-semibold text-gray-900">{treatment.solution}</span>
                     <svg
-                      className={`w-5 h-5 transition-transform duration-200 ${
-                        expandedProduct === index ? 'transform rotate-180' : ''
-                      }`}
+                      className={`w-5 h-5 transition-transform duration-200 ${expandedProduct === index ? 'transform rotate-180' : ''
+                        }`}
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -210,7 +208,7 @@ function InfoContent({ data }: { data: StoredData | null }) {
         </div>
 
         <div className="pb-10">
-          <a 
+          <a
             href="/"
             className="bg-sky-400 hover:bg-sky-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200"
           >

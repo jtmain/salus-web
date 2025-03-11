@@ -49,7 +49,7 @@ const Page: React.FC = () => {
             formData.append("image", blob, "photo.png");
             formData.append("skinfo", userInput);
 
-            fetch("https://urchin-app-mwnji.ondigitalocean.app/upload", {
+            fetch("http://127.0.0.1:8080/upload", {
               method: "POST",
               body: formData,
             })
@@ -94,7 +94,7 @@ const Page: React.FC = () => {
             formData.append("image", blob, "photo.png");
             formData.append("skinfo", userInput);
 
-            fetch("https://urchin-app-mwnji.ondigitalocean.app/upload", {
+            fetch("http://127.0.0.1:8080/upload", {
               method: "POST",
               body: formData,
             })

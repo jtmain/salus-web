@@ -48,7 +48,7 @@ const Page: React.FC = () => {
             formData.append("image", blob, "photo.png");
             formData.append("skinfo", userInput);
 
-            fetch("http://127.0.0.1:8080/upload/cancer", {
+            fetch("https://salus-be-834299777702.us-central1.run.app/upload_cancer", {
               method: "POST",
               body: formData,
             })
@@ -60,7 +60,7 @@ const Page: React.FC = () => {
                 sessionStorage.setItem('skinAnalysisData', JSON.stringify(data));
                 const storedData = sessionStorage.getItem('skinAnalysisData');
                 console.log("storedData", storedData);
-                router.push('/info');
+                router.push('/infoCancer');
               })
               .catch((error) => {
                 setIsLoading(false); // Stop loading on error
@@ -93,7 +93,7 @@ const Page: React.FC = () => {
             formData.append("image", blob, "photo.png");
             formData.append("skinfo", userInput);
 
-            fetch("http://127.0.0.1:8080/upload/cancer", {
+            fetch("https://salus-be-834299777702.us-central1.run.app/upload_cancer", {
               method: "POST",
               body: formData,
             })
@@ -105,7 +105,7 @@ const Page: React.FC = () => {
                 sessionStorage.setItem('skinAnalysisData', JSON.stringify(data));
                 const storedData = sessionStorage.getItem('skinAnalysisData');
                 console.log("storedData", storedData);
-                router.push('/info');
+                router.push('/infoCancer');
               })
               .catch((error) => {
                 setIsLoading(false); // Stop loading on error

@@ -10,6 +10,12 @@ export default function Page() {
       >
         Start Your Evaluation
       </Link>
+      <Link 
+        href="/startCancer"
+        className="mt-4 px-6 py-3 bg-sky-400 text-white rounded-md hover:bg-sky-500 transition-colors"
+      >
+        Start Your Cancer Evaluation
+      </Link>
     </div>
   );
 }

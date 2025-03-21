@@ -16,7 +16,6 @@ const Page: React.FC = () => {
     "/IMG7.png",
     "/IMG8.png",
     "/IMG9.png",
-    "/IMG11.png",
     "IMG13.jpg",
     "IMG14.jpg"
   ];

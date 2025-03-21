@@ -8,7 +8,7 @@ export default function Page() {
         href="/start"
         className="mt-4 px-6 py-3 bg-sky-400 text-white rounded-md hover:bg-sky-500 transition-colors"
       >
-        Start Your Evaluation
+        Start Your Acne Evaluation
       </Link>
       <Link 
         href="/startCancer"

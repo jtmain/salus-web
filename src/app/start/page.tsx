@@ -16,8 +16,8 @@ const Page: React.FC = () => {
     "/IMG7.png",
     "/IMG8.png",
     "/IMG9.png",
-    "IMG13.jpg",
-    "IMG14.jpg"
+    "/IMG13.jpg",
+    "/IMG14.jpg"
   ];
 
   useEffect(() => {
